@@ -39,10 +39,10 @@ build: getdeps
 	@echo 'Building:'
 	@cd ./dpkg && autoconf
 	./dpkg/./configure --prefix=/usr/local
-	make -C ./dpkg/
+	@cd ./dpkg/ && make
 
 install: build
 	@echo 'Installing:'
-	make -C ./dpkg/ install
+	@cd ./dpkg/ && make install
 
 .PHONY: all clean getdeps
