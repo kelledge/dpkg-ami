@@ -1,18 +1,16 @@
-# Simple make file to wrap the building of the apt source tree.
+# Simple make file to wrap the building of the dpkg source tree.
 #
-# This project assumes that it will be built using Debian's
-# own set of tools for compiling and packaging. This manually 
-# build some of the more useful parts of the apt project, and
-# installs them in their expected location for Amazons default
-# linux AMI.
+# This manually builds the dpkg project, and installs them in 
+# their expected location for Amazons default linux AMI.
 #
+# My Makefile-foo is weak (re-do in cmake?) 
 # There are likley issues with this ... you've been warned.
 
 all: getdeps build
 
 getdeps:
 	@echo 'Getting Dependancies:'
-	@sudo yum install \
+	@sudo yum --assumeyes install \
 					gcc \
 					gcc-c++ \
 					autoconf \
@@ -38,7 +36,7 @@ build: getdeps
 
 	@echo 'Building:'
 	@cd ./dpkg && autoconf
-	./dpkg/./configure --prefix=/usr/local
+	@cd ./dpkg/ && ./configure --prefix=/usr/local
 	@cd ./dpkg/ && make
 
 install: build
